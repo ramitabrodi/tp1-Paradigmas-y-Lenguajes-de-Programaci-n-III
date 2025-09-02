@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.nombre }} - Lubricentro R/18{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('listado_box') }}">Productos</a></li>
+            <li class="breadcrumb-item active">{{ product.nombre }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body text-center py-5" style="min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <img src="{{ product.imagen }}" alt="{{ product.nombre }}" 
+                             class="img-fluid" style="max-height: 180px; max-width: 180px; object-fit: contain;" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fas fa-oil-can fa-10x text-primary" style="display: none;"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="badge bg-primary fs-6">{{ product.categoria }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-lg-7">
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="h3 mb-0">{{ product.nombre }}</h1>
+                        <span class="badge bg-secondary">#{{ product.id }}</span>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Marca</h5>
+                            <p class="fw-bold">{{ product.marca }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Categoría</h5>
+                            <p><span class="badge bg-info">{{ product.categoria }}</span></p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="text-muted">Descripción</h5>
+                        <p>{{ product.descripcion }}</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Especificaciones</h5>
+                            <p class="fw-bold">{{ product.especificaciones }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Presentación</h5>
+                            <p class="fw-bold">{{ product.presentacion }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Precio</h5>
+                            <h3 class="text-success fw-bold">
+                                ${{ "{:,.2f}".format(product.precio) }}
+                            </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Disponibilidad</h5>
+                            {% if product.stock > 10 %}
+                                <span class="badge bg-success fs-6">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    En Stock ({{ product.stock }} unidades)
+                                </span>
+                            {% elif product.stock > 5 %}
+                                <span class="badge bg-warning fs-6">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                    Stock Limitado ({{ product.stock }} unidades)
+                                </span>
+                            {% elif product.stock > 0 %}
+                                <span class="badge bg-danger fs-6">
+                                    <i class="fas fa-times-circle me-1"></i>
+                                    Últimas Unidades ({{ product.stock }} unidades)
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary fs-6">
+                                    <i class="fas fa-times me-1"></i>
+                                    Sin Stock
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('listado_box') }}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-2"></i>Volver al Catálogo
+                        </a>
+                        {% if product.stock > 0 %}
+                            <a href="{{ url_for('comprar') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                            </a>
+                        {% else %}
+                            <button class="btn btn-secondary btn-lg" disabled>
+                                <i class="fas fa-times me-2"></i>Sin Stock
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-info-circle me-2"></i>Información Adicional</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-shipping-fast me-2 text-primary"></i>Envío</h6>
+                            <p class="text-muted">Entrega en el día para CABA y GBA. Envíos al interior del país.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-certificate me-2 text-primary"></i>Garantía</h6>
+                            <p class="text-muted">Todos nuestros productos cuentan con garantía del fabricante.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-headset me-2 text-primary"></i>Soporte</h6>
+                            <p class="text-muted">Asesoramiento técnico especializado incluido.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products Suggestion -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h5><i class="fas fa-lightbulb me-2"></i>¿Necesitas otros productos?</h5>
+                <p class="mb-2">Te recomendamos revisar nuestro catálogo completo para encontrar productos complementarios.</p>
+                <a href="{{ url_for('listado_box') }}" class="btn btn-info">
+                    <i class="fas fa-boxes me-2"></i>Ver Todos los Productos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

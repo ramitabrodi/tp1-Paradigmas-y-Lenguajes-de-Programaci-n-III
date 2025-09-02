@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}Formulario de Compra - Lubricentro R/18{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-6 fw-bold">Formulario de Compra</h1>
+                <p class="lead text-muted">Complete sus datos para procesar su pedido</p>
+            </div>
+
+            <form method="POST" novalidate>
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-user me-2"></i>Datos del Cliente</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Customer Information -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre Completo *</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" 
+                                       value="{{ request.form.get('nombre', '') }}" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su nombre completo.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label">Teléfono *</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" 
+                                       value="{{ request.form.get('telefono', '') }}" 
+                                       placeholder="Ej: 011-1234-5678"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese solo números (8-15 dígitos).
+                                </div>
+                                <small class="text-muted">Solo números, espacios, guiones y paréntesis</small>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="direccion" class="form-label">Dirección Completa *</label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" 
+                                       value="{{ request.form.get('direccion', '') }}" 
+                                       placeholder="Calle, número, localidad, provincia" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su dirección completa.
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       value="{{ request.form.get('email', '') }}" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese un email válido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-credit-card me-2"></i>Medio de Pago</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medio_pago" 
+                                           id="efectivo" value="efectivo" 
+                                           {{ 'checked' if request.form.get('medio_pago') == 'efectivo' }}>
+                                    <label class="form-check-label" for="efectivo">
+                                        <i class="fas fa-money-bill me-2 text-success"></i>Efectivo
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medio_pago" 
+                                           id="transferencia" value="transferencia"
+                                           {{ 'checked' if request.form.get('medio_pago') == 'transferencia' }}>
+                                    <label class="form-check-label" for="transferencia">
+                                        <i class="fas fa-university me-2 text-primary"></i>Transferencia Bancaria
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medio_pago" 
+                                           id="tarjeta_credito" value="tarjeta_credito"
+                                           {{ 'checked' if request.form.get('medio_pago') == 'tarjeta_credito' }}>
+                                    <label class="form-check-label" for="tarjeta_credito">
+                                        <i class="fas fa-credit-card me-2 text-info"></i>Tarjeta de Crédito
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medio_pago" 
+                                           id="tarjeta_debito" value="tarjeta_debito"
+                                           {{ 'checked' if request.form.get('medio_pago') == 'tarjeta_debito' }}>
+                                    <label class="form-check-label" for="tarjeta_debito">
+                                        <i class="fas fa-credit-card me-2 text-warning"></i>Tarjeta de Débito
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Selection -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-boxes me-2"></i>Selección de Productos</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if products %}
+                            <p class="text-muted mb-3">Seleccione los productos que desea comprar:</p>
+                            
+                            <div class="row g-3">
+                                {% for product in products %}
+                                <div class="col-lg-6">
+                                    <div class="card h-100 {% if product.stock == 0 %}opacity-50{% endif %}">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" 
+                                                       name="productos[]" value="{{ product.id }}" 
+                                                       id="producto_{{ product.id }}"
+                                                       {% if product.stock == 0 %}disabled{% endif %}
+                                                       {{ 'checked' if product.id|string in request.form.getlist('productos[]') }}>
+                                                <label class="form-check-label w-100" for="producto_{{ product.id }}">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div>
+                                                            <h6 class="mb-1">{{ product.nombre }}</h6>
+                                                            <small class="text-muted">{{ product.marca }} - {{ product.presentacion }}</small>
+                                                            <div class="mt-1">
+                                                                {% if product.stock > 0 %}
+                                                                    <span class="badge bg-success small">Stock: {{ product.stock }}</span>
+                                                                {% else %}
+                                                                    <span class="badge bg-danger small">Sin Stock</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <div class="fw-bold text-success">
+                                                                ${{ "{:,.2f}".format(product.precio) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                No hay productos disponibles en este momento.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="alert alert-info mb-0">
+                                    <small>
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Todos los campos marcados con (*) son obligatorios.
+                                        Nos contactaremos con usted para confirmar el pedido y coordinar la entrega.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>Enviar Pedido
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Additional Information -->
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-shipping-fast fa-2x text-primary mb-2"></i>
+                            <h6>Entrega Rápida</h6>
+                            <small class="text-muted">Entrega en el día para CABA y GBA</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-headset fa-2x text-primary mb-2"></i>
+                            <h6>Asesoramiento</h6>
+                            <small class="text-muted">Soporte técnico especializado</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-shield-alt fa-2x text-primary mb-2"></i>
+                            <h6>Garantía</h6>
+                            <small class="text-muted">Productos con garantía del fabricante</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Productos - Tarjetas - Lubricentro R/18{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 fw-bold">Catálogo de Productos</h1>
+            <p class="text-muted">Vista en tarjetas - Todos nuestros productos disponibles</p>
+        </div>
+        <div>
+            <a href="{{ url_for('listado_tabla') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-table me-2"></i>Vista Tabla
+            </a>
+        </div>
+    </div>
+
+    {% if products %}
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">{{ product.categoria }}</h6>
+                            <span class="badge bg-light text-dark">#{{ product.id }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="text-center mb-3" style="height: 120px; display: flex; align-items: center; justify-content: center;">
+                            <img src="{{ product.imagen }}" alt="{{ product.nombre }}" 
+                                 class="img-fluid" style="max-height: 100px; max-width: 100px; object-fit: contain;" 
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                            <i class="fas fa-oil-can fa-3x text-primary" style="display: none;"></i>
+                        </div>
+                        
+                        <h5 class="card-title">{{ product.nombre }}</h5>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-tag me-2"></i>{{ product.marca }}
+                        </p>
+                        <p class="card-text">{{ product.descripcion[:100] }}{% if product.descripcion|length > 100 %}...{% endif %}</p>
+                        
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">Presentación:</small>
+                                <div class="fw-bold">{{ product.presentacion }}</div>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted">Stock:</small>
+                                <div>
+                                    {% if product.stock > 10 %}
+                                        <span class="badge bg-success">{{ product.stock }}</span>
+                                    {% elif product.stock > 5 %}
+                                        <span class="badge bg-warning">{{ product.stock }}</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">{{ product.stock }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <small class="text-muted">Especificaciones:</small>
+                            <div class="small">{{ product.especificaciones }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="text-success mb-0">
+                                    ${{ "{:,.2f}".format(product.precio) }}
+                                </h4>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('producto', product_id=product.id) }}" 
+                                   class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Detalles
+                                </a>
+                                <a href="{{ url_for('comprar') }}" 
+                                   class="btn btn-primary btn-sm">
+                                    <i class="fas fa-shopping-cart me-1"></i>Comprar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Total de productos:</strong> {{ products|length }} productos disponibles
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="{{ url_for('comprar') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-shopping-cart me-2"></i>Realizar Pedido Completo
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-box-open fa-5x text-muted mb-3"></i>
+            <h3>No hay productos disponibles</h3>
+            <p class="text-muted">No se encontraron productos en el catálogo.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al Inicio</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Lubricentro R/1{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="text-white py-5 position-relative" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ url_for('static', filename='images/lubricentro-fachada.jpg') }}'); background-size: cover; background-position: center; min-height: 500px;">
+    <div class="container h-100">
+        <div class="row align-items-center h-100">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3 text-shadow">Lubricentro R/18</h1>
+                <p class="lead mb-4 text-shadow">Especialistas en lubricación automotriz e industrial con más de 5 años de experiencia. Ofrecemos productos de la más alta calidad para mantener tu vehículo y maquinaria en perfecto estado.</p>
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{{ url_for('listado_box') }}" class="btn btn-light btn-lg me-md-2">
+                        <i class="fas fa-eye me-2"></i>Ver Productos
+                    </a>
+                    <a href="{{ url_for('comprar') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-shopping-cart me-2"></i>Comprar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">¿Por qué elegir Lubricentro R/18?</h2>
+            <p class="lead text-muted">Conoce las ventajas que nos hacen únicos en el mercado</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-award fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Calidad Garantizada</h5>
+                        <p class="card-text">Trabajamos solo con marcas reconocidas mundialmente. Todos nuestros productos cuentan con certificaciones internacionales.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Asesoramiento Experto</h5>
+                        <p class="card-text">Nuestro equipo técnico especializado te ayudará a encontrar el producto ideal para tu vehículo o maquinaria.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-truck fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Entrega Rápida</h5>
+                        <p class="card-text">Contamos con stock permanente y servicio de entrega en el día para la zona metropolitana.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Categories Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Nuestras Categorías</h2>
+            <p class="lead text-muted">Amplio catálogo de productos para todas sus necesidades</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-oil-can fa-2x text-primary mb-3"></i>
+                        <h6 class="card-title">Aceites de Motor</h6>
+                        <p class="card-text small">Minerales, sintéticos y semisintéticos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-cogs fa-2x text-primary mb-3"></i>
+                        <h6 class="card-title">Aceites de Transmisión</h6>
+                        <p class="card-text small">Manuales, automáticas y diferenciales</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-tint fa-2x text-primary mb-3"></i>
+                        <h6 class="card-title">Grasas</h6>
+                        <p class="card-text small">Multiuso, alta temperatura, marina</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-thermometer-half fa-2x text-primary mb-3"></i>
+                        <h6 class="card-title">Refrigerantes</h6>
+                        <p class="card-text small">Anticongelantes y anticorrosivos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('listado_box') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-eye me-2"></i>Ver Todos los Productos
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-3">¿Necesitas Asesoramiento?</h2>
+                <p class="lead mb-4">Nuestros especialistas están listos para ayudarte a encontrar el producto perfecto para tu vehículo o maquinaria industrial.</p>
+                
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-phone fa-2x text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-0">Teléfono</h6>
+                                <small class="text-muted">(+54)3765100816</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-envelope fa-2x text-primary me-3"></i>
+                            <div>
+                                <h6 class="mb-0">Email</h6>
+                                <small class="text-muted">lubricentror18@.com</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Ubicación</h5>
+                        <div class="mb-3">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                            <strong>Av. Tambor De Tacuari, Posadas ,Misiones</strong>
+                        </div>
+                        <div class="mb-3">
+                            <i class="fas fa-clock text-primary me-2"></i>
+                            <strong>Horarios:</strong>
+                        </div>
+                        <ul class="list-unstyled ms-4">
+                            <li>Lunes a Viernes: 8:00 - 18:00</li>
+                            <li>Sábados: 8:00 - 13:00</li>
+                            <li>Domingos: Cerrado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

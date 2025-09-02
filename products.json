@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "nombre": "Aceite Motor 15W-40",
+        "categoria": "Aceites de Motor",
+        "marca": "Mobil 1",
+        "precio": 8500.00,
+        "descripcion": "Aceite mineral multigrado para motores a gasolina y diesel. Proporciona excelente protección contra el desgaste y mantiene la limpieza del motor.",
+        "especificaciones": "API SN/CF, ACEA A3/B4",
+        "presentacion": "4 litros",
+        "stock": 25,
+        "imagen": "/static/images/aceite-motor-15w40.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Aceite Transmisión ATF",
+        "categoria": "Aceites de Transmisión",
+        "marca": "Castrol",
+        "precio": 12000.00,
+        "descripcion": "Fluido para transmisiones automáticas con tecnología avanzada. Garantiza cambios suaves y protección contra el desgaste.",
+        "especificaciones": "DEXRON VI, MERCON LV",
+        "presentacion": "1 litro",
+        "stock": 15,
+        "imagen": "/static/images/aceite-transmision-atf.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Grasa Multiuso",
+        "categoria": "Grasas",
+        "marca": "Shell",
+        "precio": 3200.00,
+        "descripcion": "Grasa de litio multiuso para aplicaciones generales. Excelente resistencia al agua y temperaturas extremas.",
+        "especificaciones": "NLGI 2",
+        "presentacion": "500g",
+        "stock": 40,
+        "imagen": "/static/images/grasa-multiuso.png"
+    },
+    {
+        "id": 4,
+        "nombre": "Aceite Hidráulico ISO 68",
+        "categoria": "Aceites Hidráulicos",
+        "marca": "Total",
+        "precio": 15500.00,
+        "descripcion": "Aceite hidráulico de alta calidad para sistemas hidráulicos industriales y móviles. Excelente estabilidad térmica.",
+        "especificaciones": "ISO VG 68, DIN 51524 Part 2",
+        "presentacion": "20 litros",
+        "stock": 8,
+        "imagen": "/static/images/aceite-hidraulico-iso68.png"
+    },
+    {
+        "id": 5,
+        "nombre": "Refrigerante Motor",
+        "categoria": "Refrigerantes",
+        "marca": "Prestone",
+        "precio": 4800.00,
+        "descripcion": "Refrigerante concentrado para sistemas de enfriamiento. Protección anticongelante y anticorrosiva.",
+        "especificaciones": "ASTM D3306",
+        "presentacion": "3.78 litros",
+        "stock": 20,
+        "imagen": "/static/images/refrigerante-prestone.png"
+    },
+    {
+        "id": 6,
+        "nombre": "Aceite 2 Tiempos",
+        "categoria": "Aceites Especiales",
+        "marca": "Valvoline",
+        "precio": 6500.00,
+        "descripcion": "Aceite formulado específicamente para motores de 2 tiempos. Reduce emisiones y depósitos en el motor.",
+        "especificaciones": "JASO FD, ISO EGD",
+        "presentacion": "1 litro",
+        "stock": 30,
+        "imagen": "/static/images/aceite-2tiempos-valvoline.png"
+    },
+    {
+        "id": 7,
+        "nombre": "Aceite Diferencial 90",
+        "categoria": "Aceites de Transmisión",
+        "marca": "Lucas Oil",
+        "precio": 9200.00,
+        "descripcion": "Aceite para diferenciales y cajas de cambios manuales. Formulación con aditivos antidesgaste.",
+        "especificaciones": "API GL-5, SAE 90",
+        "presentacion": "1 litro",
+        "stock": 12,
+        "imagen": "/static/images/aceite-diferencial-lucas.png"
+    },
+    {
+        "id": 8,
+        "nombre": "Desengrasante Industrial",
+        "categoria": "Productos de Limpieza",
+        "marca": "WD-40",
+        "precio": 2800.00,
+        "descripcion": "Desengrasante potente para limpieza de piezas mecánicas. Remueve grasa, aceite y suciedad.",
+        "especificaciones": "Biodegradable",
+        "presentacion": "500ml",
+        "stock": 35,
+        "imagen": "/static/images/desengrasante-wd40.png"
+    }
+]

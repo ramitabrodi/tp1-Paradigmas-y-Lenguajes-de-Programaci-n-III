@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Productos - Tabla - Lubricentro R/18{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 fw-bold">Catálogo de Productos</h1>
+            <p class="text-muted">Vista en tabla - Todos nuestros productos disponibles</p>
+        </div>
+        <div>
+            <a href="{{ url_for('listado_box') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-th-large me-2"></i>Vista Tarjetas
+            </a>
+        </div>
+    </div>
+
+    {% if products %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Presentación</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>
+                                    <span class="badge bg-secondary">#{{ product.id }}</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                            <img src="{{ product.imagen }}" alt="{{ product.nombre }}" 
+                                                 class="img-fluid" style="max-height: 35px; max-width: 35px; object-fit: contain;" 
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                            <i class="fas fa-oil-can fa-lg text-primary" style="display: none;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">{{ product.nombre }}</h6>
+                                            <small class="text-muted">{{ product.especificaciones }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ product.categoria }}</span>
+                                </td>
+                                <td>
+                                    <strong>{{ product.marca }}</strong>
+                                </td>
+                                <td>{{ product.presentacion }}</td>
+                                <td>
+                                    <span class="fw-bold text-success">
+                                        ${{ "{:,.2f}".format(product.precio) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if product.stock > 10 %}
+                                        <span class="badge bg-success">{{ product.stock }} unidades</span>
+                                    {% elif product.stock > 5 %}
+                                        <span class="badge bg-warning">{{ product.stock }} unidades</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">{{ product.stock }} unidades</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('producto', product_id=product.id) }}" 
+                                           class="btn btn-sm btn-outline-primary" 
+                                           title="Ver detalles">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ url_for('comprar') }}" 
+                                           class="btn btn-sm btn-outline-success" 
+                                           title="Comprar">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Total de productos:</strong> {{ products|length }} productos disponibles
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="{{ url_for('comprar') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-shopping-cart me-2"></i>Realizar Pedido
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-box-open fa-5x text-muted mb-3"></i>
+            <h3>No hay productos disponibles</h3>
+            <p class="text-muted">No se encontraron productos en el catálogo.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al Inicio</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
